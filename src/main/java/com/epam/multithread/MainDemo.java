@@ -15,20 +15,20 @@ import java.util.concurrent.Future;
 
 public class MainDemo {
     private static Logger logger = LogManager.getLogger();
+
     public static void main(String[] args) throws InterruptedException {
-        logger.log(Level.DEBUG, Runtime.getRuntime().availableProcessors());
-        Ship sh1 = new Ship(Size.LARGE, 0);
-        Ship sh2 = new Ship(Size.MEDIUM, 20);
-        Ship sh3 = new Ship(Size.SMALL, 0);
-        ArrayList<Ship> qqq = new ArrayList<>();
-        qqq.add(sh1);
-        qqq.add(sh2);
-        qqq.add(sh3);
+        logger.log(Level.INFO, Runtime.getRuntime().availableProcessors());
+
+        List<Ship> shipList = List.of(new Ship(Size.LARGE), new Ship(Size.MEDIUM), new Ship(Size.SMALL),
+                new Ship(Size.MEDIUM), new Ship(Size.SMALL), new Ship(Size.LARGE));
+        int i = 1;
+        for (Ship ship : shipList) {
+            ship.setShipName("SHIP " + i);
+            i++;
+        }
+
         ExecutorService service = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-
-
-        List<Future<Ship>> sr = service.invokeAll(qqq);
+        shipList.forEach(ship -> service.execute(ship));
         service.shutdown();
-
     }
 }

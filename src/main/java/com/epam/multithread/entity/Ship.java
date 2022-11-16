@@ -4,50 +4,44 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.concurrent.Callable;
-
-public class Ship implements Callable<Ship> {
+public class Ship implements Runnable {
     private static Logger logger = LogManager.getLogger();
-    private  Size shipSize;
-    private  int countContainer;
+    private Size shipSize;
+    private int countContainer;
+    private String shipName;
 
-    public Ship(Size shipSize, int countContainer) {
+    public Ship(Size shipSize) {
         this.shipSize = shipSize;
-        this.countContainer = countContainer;
+        this.countContainer = shipSize.getValue();
+    }
+
+    public String getShipName() {
+        return shipName;
+    }
+
+    public void setShipName(String shipName) {
+        this.shipName = shipName;
     }
 
     public Size getSize() {
         return shipSize;
     }
 
-    public void load(int count){
-        if (this.countContainer + count <= this.shipSize.getValue()){
-            this.countContainer += count;
-        } else {
-            this.countContainer = shipSize.getValue();
-        }
+    public int getCountContainer() {
+        return countContainer;
     }
 
-    public void unload(int count){
-        if (this.countContainer - count >= 0){
-            this.countContainer -= count;
-        } else {
-            this.countContainer = 0;
-        }
+    public void setCountContainer(int countContainer) {
+        this.countContainer = countContainer;
     }
 
     @Override
-    public Ship call() throws Exception {
-
-        logger.log(Level.DEBUG, "ship {} arrive to Port", Thread.currentThread().getName());
-        Port port = Port.getInstance(2);
-        port.add(this);
-        logger.log(Level.DEBUG, "Port {}", port.toString());
-
-
-
-
-
-        return this;
+    public void run() {
+        Thread.currentThread().setName(this.getShipName());
+        logger.log(Level.DEBUG, "{} was created", Thread.currentThread().getName());
+        Port port = Port.getInstance(2, 1000);
+        Pier pier = port.getPier();
+        pier.unload(this, port);
+        logger.log(Level.DEBUG, "{} leave from Port", Thread.currentThread().getName());
     }
 }

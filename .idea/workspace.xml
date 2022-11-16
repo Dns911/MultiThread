@@ -4,17 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="753fb691-bdf8-4d97-8c19-2ccd8080abd2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/epam/multithread/MainDemo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/epam/multithread/entity/Port.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/epam/multithread/entity/Ship.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/epam/multithread/entity/Size.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/log4j2.xml" afterDir="false" />
+    <list default="true" id="753fb691-bdf8-4d97-8c19-2ccd8080abd2" name="Changes" comment="14.11">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/epam/multithread/entity/Pier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/epam/multithread/MainDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/epam/multithread/MainDemo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/epam/multithread/entity/Port.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/epam/multithread/entity/Port.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/epam/multithread/entity/Ship.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/epam/multithread/entity/Ship.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/epam/multithread/entity/Size.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/epam/multithread/entity/Size.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,8 +42,9 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/EDUCATION/JAVA/Practice/uladzimirmakei",
+    "last_opened_file_path": "D:/EDUCATION/JAVA/Multithreading-master",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -97,8 +94,17 @@
       <workItem from="1668352096203" duration="4244000" />
       <workItem from="1668359582289" duration="3809000" />
       <workItem from="1668365797333" duration="2978000" />
-      <workItem from="1668429926278" duration="5454000" />
+      <workItem from="1668429926278" duration="8881000" />
+      <workItem from="1668590199472" duration="19778000" />
     </task>
+    <task id="LOCAL-00001" summary="14.11">
+      <created>1668436910930</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1668436910930</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -114,5 +120,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="14.11" />
+    <option name="LAST_COMMIT_MESSAGE" value="14.11" />
   </component>
 </project>
