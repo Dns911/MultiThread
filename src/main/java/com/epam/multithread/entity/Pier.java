@@ -6,11 +6,11 @@ import org.apache.logging.log4j.Logger;
 
 import java.sql.Time;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Condition;
 
 public class Pier {
     private static Logger logger = LogManager.getLogger();
     private int pierNumber;
-    private boolean pierIsFree = true;
 
     public Pier() {
     }
@@ -23,38 +23,47 @@ public class Pier {
         return pierNumber;
     }
 
-    public boolean getStatus() {
-        return pierIsFree;
-    }
-
-    public void setStatus(boolean pierIsFree) {
-        this.pierIsFree = pierIsFree;
-    }
-
     public void unload(Ship ship, Port port) {
         try {
-            int count = ship.getCountContainer();
-            if (port.getCountContainers() + count <= port.getCapacity()) {
-
+            int countShip = ship.getCountContainer();
+            int countPort = port.getCountContainers();
+            if (countPort + countShip <= port.CAPACITY) {
                 logger.log(Level.DEBUG, "{} get pier N {}", Thread.currentThread().getName(), this.pierNumber);
-
                 TimeUnit.SECONDS.sleep(ship.getSize().getTimeSec());
-                port.addContainers(count);
+                port.addContainers(countShip);
                 ship.setCountContainer(0);   // Set ship EMPTY
-                this.setStatus(true);
-
                 logger.log(Level.DEBUG, "{} was unloaded on pier N {}", Thread.currentThread().getName(), this.pierNumber);
-                logger.log(Level.INFO, "Actual size port is {} containers", port.getCountContainers());
+
             } else {
                 logger.log(Level.DEBUG, "Port is FULL, wait 5 sec!");
-
                 TimeUnit.SECONDS.sleep(5);
-                port.removeContainers(port.getCapacity() / 2);
-
+                port.removeContainers(port.CAPACITY / 2);
                 logger.log(Level.DEBUG, "Port is ready");
             }
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            logger.log(Level.ERROR, "Pier caught exception {}" , e.getMessage());
+            Thread.currentThread().interrupt();
+        }
+    }
+    public void load(Ship ship, Port port) {
+        try {
+            int countShip = ship.getCountContainer();
+            int countPort = port.getCountContainers();
+            if (countPort >= countShip) {
+                logger.log(Level.DEBUG, "{} get pier N {}", Thread.currentThread().getName(), this.pierNumber);
+                TimeUnit.SECONDS.sleep(ship.getSize().getTimeSec());
+                port.removeContainers(countShip);
+                ship.setCountContainer(countShip);   // Set ship FULL
+                logger.log(Level.DEBUG, "{} was loaded on pier N {}", Thread.currentThread().getName(), this.pierNumber);
+
+            } else {
+                logger.log(Level.WARN, "Port is EMPTY!");
+                TimeUnit.SECONDS.sleep(5);
+                logger.log(Level.INFO, "Port is ready");
+            }
+        } catch (InterruptedException e) {
+            logger.log(Level.ERROR, "Pier caught exception {}" , e.getMessage());
+            Thread.currentThread().interrupt();
         }
     }
 }

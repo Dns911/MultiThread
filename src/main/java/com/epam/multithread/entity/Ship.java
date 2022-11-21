@@ -9,10 +9,16 @@ public class Ship implements Runnable {
     private Size shipSize;
     private int countContainer;
     private String shipName;
+    private boolean isEmptyShip;
 
-    public Ship(Size shipSize) {
+    public Ship(Size shipSize, boolean isEmptyShip) {
         this.shipSize = shipSize;
-        this.countContainer = shipSize.getValue();
+        this.isEmptyShip = isEmptyShip;
+        if (isEmptyShip){
+            this.countContainer = 0;
+        } else {
+            this.countContainer = shipSize.getValue();
+        }
     }
 
     public String getShipName() {
@@ -39,9 +45,18 @@ public class Ship implements Runnable {
     public void run() {
         Thread.currentThread().setName(this.getShipName());
         logger.log(Level.DEBUG, "{} was created", Thread.currentThread().getName());
-        Port port = Port.getInstance(2, 1000);
+        Port port = Port.getInstance();
         Pier pier = port.getPier();
-        pier.unload(this, port);
-        logger.log(Level.DEBUG, "{} leave from Port", Thread.currentThread().getName());
+        if (this.isEmptyShip){
+            pier.load(this, port);
+        } else {
+            pier.unload(this, port);
+        }
+        port.realisePier(pier);
+
+
+        logger.log(Level.DEBUG, "{} departure from Port", Thread.currentThread().getName());
+        logger.log(Level.INFO, "Actual size port is {} containers", port.getCountContainers());
+
     }
 }
